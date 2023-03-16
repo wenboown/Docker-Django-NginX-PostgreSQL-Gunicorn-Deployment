@@ -20,6 +20,12 @@ make sure your django app is configures for production use using this <a href='h
 ## Migrate database
 `docker-compose run --rm djangoapp /bin/bash -c 'cd hello; ./manage.py migrate'`.
 
+# Database and static volumes
+The static files are mounted wih the volumes of the docker-compose files! However, if you change the static files 
+make sure, you remove the volumes with `docker volume prune` or run `docker compsose down -v`. Those commands remove 
+the volumes and if you run `docker compose build` again the volumes will be mounted again correctly 😄 
+You can inspect all listed mounted files in the menu.
+
 ## Run
 `docker-compose up` or `make run`.
 

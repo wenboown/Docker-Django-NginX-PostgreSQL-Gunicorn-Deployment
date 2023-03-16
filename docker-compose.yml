@@ -14,7 +14,7 @@ services:
 
   # database containers, one for each db
   db:
-    image: postgres:11.1
+    image: postgres:15.2-alpine
     volumes:
       - db_data:/var/lib/postgresql/data
     env_file:
@@ -27,8 +27,8 @@ services:
   # web container, with django + gunicorn
   djangoapp:
     build: .
-    environment:
-      - DJANGO_SETTINGS_MODULE
+    env_file:
+      - config/service/.env
     volumes:
       - .:/opt/services/djangoapp/src
       - static:/opt/services/djangoapp/static
@@ -41,7 +41,7 @@ services:
 
   # reverse proxy container (nginx)
   nginx:
-    image: nginx:1.13
+    image: nginx:latest
     ports:
       - 80:80
     
