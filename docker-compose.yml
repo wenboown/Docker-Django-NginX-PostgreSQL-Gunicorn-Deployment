@@ -18,17 +18,24 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     env_file:
-      - config/db/database
+      - ./config/db/database.env
     networks:
       - database
     ports:
       - "5432:5432"
 
   # web container, with django + gunicorn
+  # pass DJANGO_SETTINGS_MODULE from the shell: DJANGO_SETTINGS_MODULE=hello.settings.development docker compose up
   djangoapp:
     build: .
+    image: djangoapp
+    command: [ "gunicorn", "-c", "config/gunicorn/conf.py", "--bind", ":8000",
+               "--chdir", "hello", "hello.wsgi:application", "--timeout 120" ]
+    environment:
+      - DJANGO_SETTINGS_MODULE
     env_file:
-      - config/service/.env
+      - ./config/service/.env
+      - ./config/db/database.env
     volumes:
       - .:/opt/services/djangoapp/src
       - static:/opt/services/djangoapp/static

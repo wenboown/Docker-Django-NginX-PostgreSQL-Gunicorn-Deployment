@@ -27,7 +27,9 @@ the volumes and if you run `docker compose build` again the volumes will be moun
 You can inspect all listed mounted files in the menu.
 
 ## Run
-`docker-compose up` or `make run`.
+Remember to pass `DJANGO_SETTINGS_MODULE` in when you run it:
+`DJANGO_SETTINGS_MODULE=hello.settings.development docker compose up`.
+or set it in the `config/service/.env`
 
 ## Tests
 - `make checksafety`
