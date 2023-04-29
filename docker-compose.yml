@@ -34,7 +34,7 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE
     env_file:
-      - ./config/service/.env
+      - ./config/service/service.env
       - ./config/db/database.env
     volumes:
       - .:/opt/services/djangoapp/src
